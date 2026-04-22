@@ -1,17 +1,9 @@
 'use client'
-import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import SceneOverlay from '@/components/ui/SceneOverlay'
 import NavDots from '@/components/ui/NavDots'
 import SceneLabel from '@/components/ui/SceneLabel'
 import { getCurrentSegmentIndex, NUM_SCENES } from '@/lib/scrollChoreography'
-
-// Canvas is client-only — dynamic import with ssr: false avoids
-// hydration mismatches from three.js touching `window`.
-const ImmersiveCanvas = dynamic(
-  () => import('@/components/canvas/ImmersiveCanvas'),
-  { ssr: false },
-)
 
 // Scene metadata used by <SceneLabel> in the bottom-left chrome.
 const sceneLabels = [
@@ -103,20 +95,22 @@ export default function Home() {
 
   return (
     <main style={{ background: 'var(--bg)', position: 'relative' }}>
-      {/* Layer 1 — Fixed full-screen 3D canvas. Camera driven by scroll. */}
+      {/* Layer 1 — Fixed backdrop. Subtle radial gradient, no 3D.
+          Next session will replace this with one full-bleed image per scene
+          (see NEXT_SESSION.md). */}
       <div
+        aria-hidden="true"
         style={{
           position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
+          inset: 0,
           zIndex: 0,
           pointerEvents: 'none',
+          background:
+            'radial-gradient(ellipse at 30% 20%, rgba(108,99,255,0.08), transparent 60%), ' +
+            'radial-gradient(ellipse at 70% 80%, rgba(0,212,255,0.06), transparent 55%), ' +
+            'var(--bg)',
         }}
-      >
-        <ImmersiveCanvas scrollProgressRef={scrollProgressRef} />
-      </div>
+      />
 
       {/* Layer 2 — Fixed HTML overlay. Text fades in/out per scene. */}
       <SceneOverlay scrollProgressRef={scrollProgressRef} />

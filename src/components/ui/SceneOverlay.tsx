@@ -27,7 +27,6 @@ type SceneContent = {
   headline: string
   sub?: string
   accent?: 'purple' | 'cyan' | 'gold'
-  position: CSSProperties
   align?: 'left' | 'right' | 'center'
   /** If true, block captures pointer events so links/buttons work */
   interactive?: boolean
@@ -35,6 +34,8 @@ type SceneContent = {
   postCards?: PostCard[]
   /** Show profile photo inline (Scene 01) */
   showPhoto?: boolean
+  /** Wide layout — Scene 10's post-card strip needs more horizontal room. */
+  wide?: boolean
 }
 
 const SCENES: SceneContent[] = [
@@ -46,12 +47,6 @@ const SCENES: SceneContent[] = [
     accent: 'cyan',
     align: 'left',
     showPhoto: true,
-    position: {
-      top: '50%',
-      left: '6vw',
-      transform: 'translateY(-50%)',
-      maxWidth: '46ch',
-    },
   },
   // 02 World Changing
   {
@@ -60,7 +55,6 @@ const SCENES: SceneContent[] = [
     sub: 'And each time —\nhe was already on it.',
     accent: 'purple',
     align: 'left',
-    position: { top: '20vh', left: '6vw', maxWidth: '42ch' },
   },
   // 03 Formation
   {
@@ -68,8 +62,7 @@ const SCENES: SceneContent[] = [
     headline: 'Institute of Management Studies, Noida',
     sub: 'Where business thinking met the edge of technology.',
     accent: 'gold',
-    align: 'right',
-    position: { bottom: '14vh', right: '6vw', maxWidth: '44ch' },
+    align: 'left',
   },
   // 04 Ignition
   {
@@ -78,13 +71,6 @@ const SCENES: SceneContent[] = [
     sub: 'ChatGPT launched.\n"This is the wave. Get on it. Now."',
     accent: 'gold',
     align: 'center',
-    position: {
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      maxWidth: '50ch',
-      textAlign: 'center',
-    },
   },
   // 05 Frontfoot
   {
@@ -92,13 +78,7 @@ const SCENES: SceneContent[] = [
     headline: "Frontfoot isn't speed.\nIt's attention.",
     sub: "Reading what hasn't been named yet.",
     accent: 'cyan',
-    align: 'right',
-    position: {
-      top: '50%',
-      right: '6vw',
-      transform: 'translateY(-50%)',
-      maxWidth: '42ch',
-    },
+    align: 'left',
   },
   // 06 Conviction
   {
@@ -107,7 +87,6 @@ const SCENES: SceneContent[] = [
     sub: 'It was always accessibility.',
     accent: 'purple',
     align: 'left',
-    position: { bottom: '16vh', left: '6vw', maxWidth: '46ch' },
   },
   // 07 Team
   {
@@ -116,7 +95,6 @@ const SCENES: SceneContent[] = [
     sub: "He didn't just watch the wave.\nHe joined the team building the board.",
     accent: 'cyan',
     align: 'left',
-    position: { top: '22vh', left: '6vw', maxWidth: '44ch' },
   },
   // 08 Product
   {
@@ -124,13 +102,7 @@ const SCENES: SceneContent[] = [
     headline: 'No complex setup.\nNo overwhelming dashboards.',
     sub: 'Just clarity.\n5 AI agents. One command.',
     accent: 'gold',
-    align: 'right',
-    position: {
-      top: '50%',
-      right: '6vw',
-      transform: 'translateY(-50%)',
-      maxWidth: '44ch',
-    },
+    align: 'left',
   },
   // 09 Build
   {
@@ -139,21 +111,15 @@ const SCENES: SceneContent[] = [
     sub: 'he was building with it.',
     accent: 'purple',
     align: 'left',
-    position: { bottom: '18vh', left: '6vw', maxWidth: '46ch' },
   },
-  // 10 Voice — headline left, post cards to the right
+  // 10 Voice — wide so post-card strip fits
   {
     eyebrow: 'The Voice',
     headline: '11,685 followers.',
     sub: 'While the wave was forming —\nhe was already writing about where it goes.',
     accent: 'cyan',
-    align: 'left',
-    position: {
-      top: '50%',
-      left: '6vw',
-      transform: 'translateY(-50%)',
-      maxWidth: '90vw',
-    },
+    align: 'center',
+    wide: true,
     postCards: [
       { file: '/posts/post-01.png', caption: 'Claude Opus 4.7 — more than a routine refresh', reactions: '9+', impressions: '440' },
       { file: '/posts/post-02.png', caption: "Smart people can't work together — rethink coordination", reactions: '12', impressions: '389' },
@@ -169,7 +135,6 @@ const SCENES: SceneContent[] = [
     sub: "The leader's real work is turning individual brilliance\ninto collective execution.",
     accent: 'purple',
     align: 'left',
-    position: { top: '24vh', left: '6vw', maxWidth: '50ch' },
   },
   // 12 Invitation — interactive so CTA links work
   {
@@ -184,13 +149,6 @@ const SCENES: SceneContent[] = [
       { label: 'View OpenAnalyst', href: 'https://openanalyst.com', accent: 'gold' },
       { label: 'Send Email', href: 'mailto:tools@openanalyst.com', accent: 'purple' },
     ],
-    position: {
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      maxWidth: '56ch',
-      textAlign: 'center',
-    },
   },
 ]
 
@@ -205,6 +163,35 @@ const ACCENT_COLORS: Record<NonNullable<SceneContent['accent']>, string> = {
   purple: 'var(--accent)',
   cyan: 'var(--accent2)',
   gold: 'var(--gold)',
+}
+
+/**
+ * All scenes share a single positioning model: vertically centred, padded
+ * off the viewport edge by a safe gutter. Horizontal alignment is derived
+ * from the `align` field only — no custom top/bottom/left/right per scene.
+ * This is what makes the layout feel calm instead of jumbled.
+ */
+function getBlockStyle(align: SceneContent['align'], wide: boolean): CSSProperties {
+  const GUTTER = 'clamp(1.5rem, 6vw, 5rem)'
+  const maxWidth = wide ? 'min(1040px, 92vw)' : 'min(58ch, 92vw)'
+  const base: CSSProperties = {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    maxWidth,
+    width: wide ? '92vw' : undefined,
+  }
+  if (align === 'center') {
+    return {
+      ...base,
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+    }
+  }
+  if (align === 'right') {
+    return { ...base, right: GUTTER }
+  }
+  return { ...base, left: GUTTER }
 }
 
 export default function SceneOverlay({
@@ -262,13 +249,14 @@ export default function SceneOverlay({
             : scene.align === 'right'
               ? 'right'
               : 'left'
+        const blockStyle = getBlockStyle(scene.align, scene.wide ?? false)
 
         return (
           <div
             key={i}
             ref={(el) => { blockRefs.current[i] = el }}
             style={{
-              position: 'absolute',
+              ...blockStyle,
               opacity: 0,
               visibility: 'hidden',
               willChange: 'opacity',
@@ -276,7 +264,8 @@ export default function SceneOverlay({
               textAlign,
               transition: 'opacity 120ms linear, visibility 120ms linear',
               pointerEvents: scene.interactive ? 'auto' : 'none',
-              ...scene.position,
+              wordBreak: 'break-word',
+              overflowWrap: 'break-word',
             }}
           >
             {/* Profile photo — Scene 01 only */}
