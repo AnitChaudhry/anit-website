@@ -1,26 +1,43 @@
-# anit-website
+# anit.upfyn.com
 
-Editorial portfolio site by [Anit Chaudhry](https://www.linkedin.com/in/anit-choudhary-984994149/) — built with Next.js 16, Tailwind v4, and Motion. Live at [anitchaudhry.github.io/anit-website](https://anitchaudhry.github.io/anit-website/).
+Personal site of **Anit Chaudhry** — AI Product Manager at OpenAnalyst, founder of [Thinqmesh Technologies](https://www.thinqmesh.com), builder of agent-native developer tools at [Upfyn](https://www.upfyn.com).
 
-If you fork this to build your own personal site, the only ask is a visible upstream credit on the live site (footer link is fine). See [LICENSE](./LICENSE) for the exact terms.
+> **Live:** [anit.upfyn.com](https://anit.upfyn.com) · **LinkedIn:** [/in/anit-choudhary-984994149](https://www.linkedin.com/in/anit-choudhary-984994149/) · **Email:** Getintouch.anit@gmail.com
 
-## Stack
+I'm shipping agentic systems at OpenAnalyst, building 10x developer tools under Upfyn, and writing weekly about where this wave goes for [11K+ followers on LinkedIn](https://www.linkedin.com/in/anit-choudhary-984994149/).
 
-- Next.js 16 (App Router, static export)
-- Tailwind CSS v4
-- Motion (framer-motion successor)
-- lucide-react icons
-- Hosted on GitHub Pages via Actions
+## What I'm building
 
-## Sections
+Open source, all on this profile — most of it Claude-Code-native or BYOK so you can fork it and run it yourself.
 
-1. **Hero** — parallax orbs, headline, portrait
-2. **Journey** — narrative beats
-3. **Experience** — collapsible role timeline
-4. **Work** — three project cards
-5. **Gallery** — left-to-right marquee of LinkedIn post screenshots, paused on hover
-6. **Conviction** — pull-quote section
-7. **Connect** — contact rail (LinkedIn / Gmail compose / OpenAnalyst / GitHub) over a cinematic video footer with a cursor-tracking Spunky mascot
+| Repo | What it is |
+|---|---|
+| **[10x-development-team](https://github.com/AnitChaudhry/10x-development-team)** | AI-powered development team plugin for Claude Code — 7 agents, 16 commands, 32 knowledge files, 39 components. Idea → spec → merge in one loop. |
+| **[codebase-context-skill](https://github.com/AnitChaudhry/codebase-context-skill)** | Context engineering middleware for Claude Code — intelligent codebase indexing, token-efficient file selection, local tracking, testing, auditing, session persistence via MD files. |
+| **[CharClaw-App](https://github.com/AnitChaudhry/CharClaw-App)** | Self-hosted AI coding agents. Fork, bring your own keys, make it yours. |
+| **[Upfyn-Code-App](https://github.com/AnitChaudhry/Upfyn-Code-App)** | GUI toolkit for AI coding agents — manage Claude Code sessions, create custom agents, track usage. |
+| **[upfyn-agents](https://github.com/AnitChaudhry/upfyn-agents)** | Claude Code skills plugin — statusline + kanban canvas TUI for AI coding agents. |
+| **[claude-code-statusline](https://github.com/AnitChaudhry/claude-code-statusline)** | Rich, customizable statusline for Claude Code — colored legends, context bar, GitHub info, token tracking, skill display. |
+| **[HRKit](https://github.com/AnitChaudhry/HRKit)** | Open-source local HR app with BYOK AI assistant, Composio integrations, recruitment kanban, per-employee folder layout. Python + SQLite. MIT. |
+| **[anit-website](https://github.com/AnitChaudhry/anit-website)** | This site — open template if you want a portfolio with the same shape. |
+
+Full list of 30 repos at [github.com/AnitChaudhry](https://github.com/AnitChaudhry?tab=repositories).
+
+## What this repo is
+
+Editorial portfolio site, deliberately understated. Built to host a profile and a body of work on a domain I own.
+
+**Stack:** Next.js 16 (App Router, static export) · Tailwind CSS v4 · Motion · lucide-react · GitHub Pages via Actions · custom domain.
+
+**Sections:**
+
+1. Hero — parallax orbs, headline, portrait
+2. Journey — narrative arc
+3. Experience — collapsible role timeline
+4. Work — three projects I'm shipping
+5. Gallery — left-to-right marquee of LinkedIn post screenshots, paused on hover
+6. Conviction — pull quote
+7. Connect — LinkedIn / Gmail compose / OpenAnalyst / GitHub, over a cinematic video footer with a cursor-tracking mascot
 
 ## Run locally
 
@@ -29,60 +46,38 @@ npm install
 npm run dev
 ```
 
-Opens on [localhost:3000](http://localhost:3000). Hot reload works for everything.
+Opens on [localhost:3000](http://localhost:3000).
 
 ## Build static site
 
 ```bash
-npm run build
+npm run build      # writes ./out/
 ```
 
-Outputs to `./out/`. The build sets `basePath: /anit-website` automatically when `NODE_ENV=production` — see [`next.config.ts`](./next.config.ts).
+Deployed automatically by [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) on every push to `master`.
 
-## Rebranding for your own site
+## Want to fork this for your own portfolio?
 
-Everything you'll need to touch lives in two places: text content and image assets.
+Open template — go ahead. The only ask is a visible upstream credit on the live site (the "Source on GitHub →" pill in the Connect footer is the natural spot). See [LICENSE](./LICENSE) for the exact terms.
 
-### 1. Text content
+What you'll touch:
 
-| What | File |
+| Section | File |
 |---|---|
 | Headline / eyebrow / nav | `src/components/sections/Hero.tsx` |
 | Journey copy | `src/components/sections/Journey.tsx` |
 | Roles array | `src/components/sections/Experience.tsx` |
-| Three project cards | `src/components/sections/Work.tsx` |
+| Project cards | `src/components/sections/Work.tsx` |
 | Pull quote | `src/components/sections/Line.tsx` |
 | Contact links + email template | `src/components/sections/Connect.tsx` |
-
-### 2. Image assets (drop replacements with the same filenames)
-
-| What | Path |
-|---|---|
 | Hero portrait | `public/profile/anit-hero.jpeg` |
-| Mascot in Connect footer | `public/profile/spunky1.jpg` |
-| Gallery posts (5, JPEG) | `public/posts/post-01.jpeg` … `post-05.jpeg` |
-| Favicon | `src/app/icon.png` (any square PNG) |
+| Mascot | `public/profile/spunky1.jpg` |
+| Gallery posts | `public/posts/post-01.jpeg` … `post-05.jpeg` |
+| Favicon | `src/app/icon.png` |
+| Site URL / SEO / OG image / sitemap / robots / llms.txt | `src/app/layout.tsx`, `src/app/sitemap.ts`, `src/app/robots.ts`, `public/llms.txt`, `public/og.png` |
 
-If you change post count or filenames, also update the `POSTS` array in `src/components/sections/Gallery.tsx`.
-
-### 3. Deploy config (one-time, when you fork)
-
-- In `next.config.ts` change `basePath: "/anit-website"` to `/<your-repo-name>` (or `""` if your repo is named `<username>.github.io`).
-- In your fork's GitHub repo settings → **Pages**, set **Source: GitHub Actions**.
-- Push to `master`. The workflow in `.github/workflows/deploy.yml` builds and deploys automatically.
-
-### 4. Keep the credit
-
-Add this somewhere visible on your live site (the Connect footer pills are a natural spot):
-
-```tsx
-<a href="https://github.com/AnitChaudhry/anit-website" target="_blank" rel="noopener noreferrer">
-  Template by Anit Chaudhry
-</a>
-```
-
-That's the only string attached. Otherwise — make it yours.
+For a custom domain, drop a `CNAME` file in `public/` with your domain, set the DNS `CNAME` to `<your-username>.github.io`, then in repo Settings → Pages enable HTTPS.
 
 ## License
 
-MIT with attribution requirement. See [LICENSE](./LICENSE).
+MIT with attribution. See [LICENSE](./LICENSE).
