@@ -1,5 +1,4 @@
-export const basePath =
-  process.env.NODE_ENV === "production" ? "/anit-website" : ""
+export const basePath = ""
 
 export const asset = (path: string) =>
-  `${basePath}${path.startsWith("/") ? path : `/${path}`}`
+  path.startsWith("/") ? path : `/${path}`

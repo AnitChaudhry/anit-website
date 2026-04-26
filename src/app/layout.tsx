@@ -21,7 +21,7 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 })
 
-const SITE_URL = "https://anitchaudhry.github.io/anit-website"
+const SITE_URL = "https://anit.upfyn.com"
 const TITLE = "Anit Chaudhry — AI Product Manager at OpenAnalyst"
 const DESCRIPTION =
   "Anit Chaudhry is an AI Product Manager at OpenAnalyst, building agentic systems, 10x developer tools, and the Claude-native analyst stack. Writing weekly about where this wave goes for 11K+ followers on LinkedIn."
