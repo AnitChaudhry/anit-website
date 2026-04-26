@@ -3,15 +3,16 @@ import { motion, useInView } from "motion/react"
 import { useRef } from "react"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
+import { asset } from "@/lib/basePath"
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/anit-choudhary-984994149/"
 
 const POSTS = [
-  "/posts/post-01.jpeg",
-  "/posts/post-02.jpeg",
-  "/posts/post-03.jpeg",
-  "/posts/post-04.jpeg",
-  "/posts/post-05.jpeg",
+  asset("/posts/post-01.jpeg"),
+  asset("/posts/post-02.jpeg"),
+  asset("/posts/post-03.jpeg"),
+  asset("/posts/post-04.jpeg"),
+  asset("/posts/post-05.jpeg"),
 ]
 
 export default function Gallery() {

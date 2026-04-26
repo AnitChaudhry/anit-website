@@ -3,6 +3,7 @@ import { motion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { ArrowUpRight, Mail, Globe } from "lucide-react"
+import { asset } from "@/lib/basePath"
 
 function GithubIcon({ size = 20 }: { size?: number }) {
   return (
@@ -131,7 +132,7 @@ function SpunkyMascot() {
           boxShadow: "0 8px 24px -8px rgba(124,139,227,0.5)",
         }}
       >
-        <Image src="/profile/spunky1.jpg" alt="" fill sizes="80px" className="object-cover" />
+        <Image src={asset("/profile/spunky1.jpg")} alt="" fill sizes="80px" className="object-cover" />
       </motion.div>
     </motion.div>
   )
@@ -262,24 +263,40 @@ export default function Connect() {
             it stays readable over the video bg. */}
         <div className="mt-20 flex flex-wrap gap-3 md:gap-4 items-center justify-between text-[10px] md:text-xs font-mono uppercase tracking-[0.28em]">
           {[
-            "© 2026 Anit Choudhary",
-            "New Delhi · India",
-            "Built with conviction.",
-          ].map((label) => (
-            <span
-              key={label}
-              className="inline-flex items-center rounded-full px-4 py-2 backdrop-blur-md"
-              style={{
-                color: "#FFFFFF",
-                background: "rgba(255, 255, 255, 0.06)",
-                border: "1px solid rgba(255, 255, 255, 0.10)",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              {label}
-            </span>
-          ))}
+            { label: "© 2026 Anit Choudhary" },
+            { label: "New Delhi · India" },
+            { label: "Built with conviction." },
+            {
+              label: "Source on GitHub →",
+              href: "https://github.com/AnitChaudhry/anit-website",
+            },
+          ].map((item) => {
+            const cls =
+              "inline-flex items-center rounded-full px-4 py-2 backdrop-blur-md transition-colors hover:bg-white/[0.10]"
+            const style = {
+              color: "#FFFFFF",
+              background: "rgba(255, 255, 255, 0.06)",
+              border: "1px solid rgba(255, 255, 255, 0.10)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.25)",
+            } as const
+            return item.href ? (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cls}
+                style={style}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <span key={item.label} className={cls} style={style}>
+                {item.label}
+              </span>
+            )
+          })}
         </div>
       </div>
 

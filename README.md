@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# anit-website
 
-## Getting Started
+Editorial portfolio site by [Anit Chaudhry](https://www.linkedin.com/in/anit-choudhary-984994149/) — built with Next.js 16, Tailwind v4, and Motion. Live at [anitchaudhry.github.io/anit-website](https://anitchaudhry.github.io/anit-website/).
 
-First, run the development server:
+If you fork this to build your own personal site, the only ask is a visible upstream credit on the live site (footer link is fine). See [LICENSE](./LICENSE) for the exact terms.
+
+## Stack
+
+- Next.js 16 (App Router, static export)
+- Tailwind CSS v4
+- Motion (framer-motion successor)
+- lucide-react icons
+- Hosted on GitHub Pages via Actions
+
+## Sections
+
+1. **Hero** — parallax orbs, headline, portrait
+2. **Journey** — narrative beats
+3. **Experience** — collapsible role timeline
+4. **Work** — three project cards
+5. **Gallery** — left-to-right marquee of LinkedIn post screenshots, paused on hover
+6. **Conviction** — pull-quote section
+7. **Connect** — contact rail (LinkedIn / Gmail compose / OpenAnalyst / GitHub) over a cinematic video footer with a cursor-tracking Spunky mascot
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Opens on [localhost:3000](http://localhost:3000). Hot reload works for everything.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build static site
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Outputs to `./out/`. The build sets `basePath: /anit-website` automatically when `NODE_ENV=production` — see [`next.config.ts`](./next.config.ts).
 
-To learn more about Next.js, take a look at the following resources:
+## Rebranding for your own site
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Everything you'll need to touch lives in two places: text content and image assets.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. Text content
 
-## Deploy on Vercel
+| What | File |
+|---|---|
+| Headline / eyebrow / nav | `src/components/sections/Hero.tsx` |
+| Journey copy | `src/components/sections/Journey.tsx` |
+| Roles array | `src/components/sections/Experience.tsx` |
+| Three project cards | `src/components/sections/Work.tsx` |
+| Pull quote | `src/components/sections/Line.tsx` |
+| Contact links + email template | `src/components/sections/Connect.tsx` |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. Image assets (drop replacements with the same filenames)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| What | Path |
+|---|---|
+| Hero portrait | `public/profile/anit-hero.jpeg` |
+| Mascot in Connect footer | `public/profile/spunky1.jpg` |
+| Gallery posts (5, JPEG) | `public/posts/post-01.jpeg` … `post-05.jpeg` |
+| Favicon | `src/app/icon.png` (any square PNG) |
+
+If you change post count or filenames, also update the `POSTS` array in `src/components/sections/Gallery.tsx`.
+
+### 3. Deploy config (one-time, when you fork)
+
+- In `next.config.ts` change `basePath: "/anit-website"` to `/<your-repo-name>` (or `""` if your repo is named `<username>.github.io`).
+- In your fork's GitHub repo settings → **Pages**, set **Source: GitHub Actions**.
+- Push to `master`. The workflow in `.github/workflows/deploy.yml` builds and deploys automatically.
+
+### 4. Keep the credit
+
+Add this somewhere visible on your live site (the Connect footer pills are a natural spot):
+
+```tsx
+<a href="https://github.com/AnitChaudhry/anit-website" target="_blank" rel="noopener noreferrer">
+  Template by Anit Chaudhry
+</a>
+```
+
+That's the only string attached. Otherwise — make it yours.
+
+## License
+
+MIT with attribution requirement. See [LICENSE](./LICENSE).

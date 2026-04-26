@@ -35,7 +35,7 @@ const ITEMS: Item[] = [
       "Tooling that takes the work the whole way",
       "Compounding leverage, not feature counts",
     ],
-    link: { label: "See the work", href: "https://www.linkedin.com/in/anitchoudhary/" },
+    link: { label: "See the work", href: "https://www.linkedin.com/in/anit-choudhary-984994149/" },
   },
   {
     number: "03",
@@ -47,7 +47,7 @@ const ITEMS: Item[] = [
       "Agentic patterns from the field",
       "Posts that make builders argue",
     ],
-    link: { label: "Read on LinkedIn", href: "https://www.linkedin.com/in/anitchoudhary/" },
+    link: { label: "Read on LinkedIn", href: "https://www.linkedin.com/in/anit-choudhary-984994149/" },
   },
 ]
 

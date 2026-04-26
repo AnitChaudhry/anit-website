@@ -4,6 +4,7 @@ import { useRef } from "react"
 import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import ConstellationField from "@/components/fx/ConstellationField"
+import { asset } from "@/lib/basePath"
 
 /**
  * Hero with pronounced parallax — three depth layers that move at very
@@ -184,7 +185,7 @@ export default function Hero() {
                 }}
               >
                 <Image
-                  src="/profile/anit-hero.jpeg"
+                  src={asset("/profile/anit-hero.jpeg")}
                   alt="Anit Choudhary"
                   fill
                   sizes="320px"
