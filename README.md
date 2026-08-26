@@ -1,10 +1,15 @@
-# anit.upfyn.com
+# Editorial Portfolio Template
 
-Personal site of **Anit Chaudhry** — AI Product Manager at OpenAnalyst, founder of [Thinqmesh Technologies](https://www.thinqmesh.com), builder of agent-native developer tools at [Upfyn](https://www.upfyn.com).
+An open, MIT-licensed Next.js portfolio template — editorial layout, scroll-driven
+motion, static export. Fork it and make it yours.
 
-> **Live:** [anit.upfyn.com](https://anit.upfyn.com) · **LinkedIn:** [/in/anit-choudhary-984994149](https://www.linkedin.com/in/anit-choudhary-984994149/) · **Email:** Getintouch.anit@gmail.com
-
-I'm shipping agentic systems at OpenAnalyst, building 10x developer tools under Upfyn, and writing weekly about where this wave goes for [11K+ followers on LinkedIn](https://www.linkedin.com/in/anit-choudhary-984994149/).
+> **Note:** this repo started life as Anit Choudhary's personal site. That site has
+> been discontinued and the custom domain removed; the repo stays public as a
+> template. The copy, images and links below are the original author's — replace
+> them with your own before deploying.
+>
+> Author: [Anit Choudhary](https://www.linkedin.com/in/anit-choudhary-984994149/) ·
+> Founder, [Thinqmesh Technologies](https://www.thinqmesh.com)
 
 ## What I'm building
 
